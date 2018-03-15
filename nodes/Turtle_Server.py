@@ -1,19 +1,27 @@
 #!/usr/bin/env python
 
 PACKAGE = 'turtle_thing'
-NODE = 'something'
+NODE = 'Turtle_Server'
 
 import rospy
+# roslib.load_manifest('my_pkg_name')
 from actionlib import SimpleActionClient, SimpleActionServer
 from geometry_msgs.msg import Twist
 from turtle_thing.msg import Turtle_positionAction, Turtle_positionResult
 
-class Something :
+class Turtle_Server :
 	def __init__(self) :
-		rospy.init_node(NODE)
-		rospy.loginfo('Hello world')
-		print("hello world")
+		rospy.loginfo("inside __init__")
+		self.Server = "/turtle_thing"
+		print(self.Server)
+		self.turtle_server = SimpleActionServer(self.Server, Turtle_positionAction, execute_cb = self.execute_cb, auto_start = False)
+		self.turtle_server.start()
+
+	def execute_cb(self, goal) :
+		rospy.loginfo("inside execute_cb")
+		print(goal.x, goal.y, goal.theta)
 
 if __name__ == '__main__':
-	n = Something()
+	rospy.init_node(NODE)	
+	n = Turtle_Server()
 	rospy.spin()
