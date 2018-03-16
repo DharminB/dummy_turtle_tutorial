@@ -14,12 +14,16 @@ class Turtle_Server :
 		rospy.loginfo("inside __init__")
 		self.Server = "/turtle_thing"
 		print(self.Server)
+		self.result = Turtle_positionResult()
 		self.turtle_server = SimpleActionServer(self.Server, Turtle_positionAction, execute_cb = self.execute_cb, auto_start = False)
 		self.turtle_server.start()
 
 	def execute_cb(self, goal) :
 		rospy.loginfo("inside execute_cb")
 		print(goal.x, goal.y, goal.theta)
+		self.result.result = True
+		# self.turtle_server.set_succeeded(self.result)
+		self.turtle_server.set_aborted(self.result)
 
 if __name__ == '__main__':
 	rospy.init_node(NODE)	

@@ -14,12 +14,32 @@ class Turtle_Client :
 		rospy.loginfo("hello there")
 		# print("inside __init__")
 		SERVER = "/turtle_thing"
-		something = actionlib.SimpleActionClient(SERVER, Turtle_positionAction)
-		print(something)
+		self.something = actionlib.SimpleActionClient(SERVER, Turtle_positionAction)
+		print(self.something)
 		# rospy.sleep(1)
-		connected = something.wait_for_server()
+		connected = self.something.wait_for_server()
 		print("hello, I am connected")
 		print(connected)
+		self.ask_user()
+
+	def ask_user(self) :
+		while True :
+			# print("inside while")
+			# x =  int(input("Enter x"))
+			# y =  int(input("Enter y"))
+			# theta =  int(input("Enter theta"))
+			garbage = input("press 0")
+			x, y, theta = 5,5,5
+			msg = Turtle_positionGoal()
+			msg.x = x
+			msg.y = y
+			msg.theta = theta
+			self.something.send_goal(msg, done_cb=self.done_cb)
+
+	def done_cb(self, status, result):
+		rospy.loginfo("inside done_cb")
+		print(status)
+		print(result)
     
 
 
