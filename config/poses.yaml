@@ -1,0 +1,16 @@
+a: 
+    x: 5
+    y: 5
+    theta: 0
+b: 
+    x: 8
+    y: 8
+    theta: 0
+c: 
+    x: 5
+    y: 8
+    theta: 0
+d: 
+    x: 8
+    y: 5
+    theta: 0
