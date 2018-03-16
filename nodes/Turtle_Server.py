@@ -4,6 +4,7 @@ PACKAGE = 'turtle_thing'
 NODE = 'Turtle_Server'
 
 import rospy
+#here
 # roslib.load_manifest('my_pkg_name')
 from actionlib import SimpleActionClient, SimpleActionServer
 from geometry_msgs.msg import Twist
